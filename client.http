@@ -32,3 +32,27 @@ Authorization: Bearer {{authToken}}
   "title": "Nova pergunta",
   "content": "Teste"
 }
+
+
+### Fetch Recent Questions
+# @name fetch_recent_questions
+GET {{baseUrl}}/questions
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "title": "Nova pergunta",
+  "content": "Teste"
+}
+
+
+### Fetch Recent Questions Pages
+# @name fetch_recent_questions_pages
+GET {{baseUrl}}/questions?page=2
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "title": "Nova pergunta 2",
+  "content": "Teste"
+}
