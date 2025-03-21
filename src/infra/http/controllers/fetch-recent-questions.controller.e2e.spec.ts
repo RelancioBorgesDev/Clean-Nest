@@ -1,5 +1,5 @@
-import { AppModule } from '@/app.module';
-import { PrismaService } from '@/prisma/prisma.service';
+import { AppModule } from '@/infra/app.module';
+import { PrismaService } from '@/infra/database/prisma/prisma.service';
 import { INestApplication } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Test } from '@nestjs/testing';
@@ -19,7 +19,7 @@ describe('Fetch recent questions (E2E)', () => {
     jwt = moduleRef.get(JwtService);
     await app.init();
   });
-  
+
   test('[GET] /questions', async () => {
     const user = await prisma.user.create({
       data: {
