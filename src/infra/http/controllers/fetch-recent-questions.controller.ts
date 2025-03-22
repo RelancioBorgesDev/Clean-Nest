@@ -1,9 +1,8 @@
-import { Get, Query, UseGuards } from '@nestjs/common';
-import { Controller, Post } from '@nestjs/common';
+import { BadRequestException, Get, Query, UseGuards } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation.pipe';
-import { PrismaService } from '@/infra/database/prisma/prisma.service';
 import { z } from 'zod';
 import { FetchRecentQuestionsUseCase } from '@/domain/forum/application/use-cases/fetch-recent-questions';
 import { QuestionPresenter } from '../presenters/question-presenter';
@@ -29,7 +28,7 @@ export class FetchRecentQuestionsController {
     });
 
     if (result.isLeft()) {
-      throw new Error();
+      throw new BadRequestException();
     }
 
     const questions = result.value.questions;

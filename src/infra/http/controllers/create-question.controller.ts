@@ -1,4 +1,4 @@
-import { Body, Request, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Request, UseGuards } from '@nestjs/common';
 import { Controller, Post } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { CurrentUser } from '@/infra/auth/current-user-decorator';
@@ -29,13 +29,16 @@ export class CreateQuestionController {
     const { title, content } = body;
     const userId = user.sub;
 
-    await this.createQuestion.execute({
+    const result = await this.createQuestion.execute({
       title,
       content,
       authorId: userId,
       attachmentsIds: [],
     });
-    return 'ok';
+
+    if (result.isLeft()) {
+      throw new BadRequestException();
+    }
   }
 
   private convertToSlug(title: string): string {
