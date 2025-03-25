@@ -1,10 +1,8 @@
 import { BadRequestException, Body, Request, UseGuards } from '@nestjs/common';
 import { Controller, Post } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { CurrentUser } from '@/infra/auth/current-user-decorator';
 import { UserPayload } from '@/infra/auth/jwt-strategy';
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation.pipe';
-import { PrismaService } from '@/infra/database/prisma/prisma.service';
 import { z } from 'zod';
 import { CreateQuestionUseCase } from '@/domain/forum/application/use-cases/create-question';
 
@@ -16,7 +14,6 @@ const createQuestionBodySchema = z.object({
 type CreateQuestionBodySchema = z.infer<typeof createQuestionBodySchema>;
 const bodyValidationPipe = new ZodValidationPipe(createQuestionBodySchema);
 @Controller('/questions')
-@UseGuards(AuthGuard('jwt'))
 export class CreateQuestionController {
   constructor(private createQuestion: CreateQuestionUseCase) {}
 
