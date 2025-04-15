@@ -36,7 +36,6 @@ describe('Fetch question comments (E2E)', () => {
     const question = await questionFactory.makePrismaQuestion({
       authorId: user.id,
     });
-
     await Promise.all([
       questionCommentFactory.makePrismaQuestionComment({
         authorId: user.id,
@@ -52,12 +51,12 @@ describe('Fetch question comments (E2E)', () => {
     ]);
 
     const questionId = question.id.toString();
+    console.log(questionId)
 
     const response = await request(app.getHttpServer())
       .get(`/questions/${questionId}/comments`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send();
-
     expect(response.statusCode).toBe(200);
 
     expect(response.body).toEqual({
