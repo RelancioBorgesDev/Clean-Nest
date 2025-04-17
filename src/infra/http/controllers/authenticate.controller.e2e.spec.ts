@@ -1,6 +1,6 @@
 import { AppModule } from '@/infra/app.module';
-import { PrismaService } from '@/infra/database/prisma/prisma.service';
-import { DatabaseModule } from '@faker-js/faker/.';
+import { DatabaseModule } from '@/infra/database/database.module';
+
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { hash } from 'bcryptjs';
@@ -25,7 +25,7 @@ describe('Authenticate (E2E)', () => {
       email: 'johndoe@example.com',
       password: await hash('123456', 8),
     });
-    
+
     const response = await request(app.getHttpServer()).post('/sessions').send({
       email: 'johndoe@example.com',
       password: '123456',

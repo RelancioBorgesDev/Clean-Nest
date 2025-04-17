@@ -43,12 +43,10 @@ describe('Delete answer (E2E)', () => {
       authorId: user.id,
       questionId: question.id,
     });
-
     const answerId = answer.id.toString();
     const response = await request(app.getHttpServer())
       .delete(`/answers/${answerId}`)
       .set('Authorization', `Bearer ${accessToken}`);
-
     expect(response.statusCode).toBe(204);
 
     const answerOnDatabase = await prisma.answer.findUnique({

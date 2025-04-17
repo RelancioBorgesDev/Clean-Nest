@@ -30,11 +30,15 @@ describe('Create question (E2E)', () => {
     const user = await studentFactory.makePrismaStudent();
     const accessToken = jwt.sign({ sub: user.id.toString() });
 
-    const response = await request(app.getHttpServer()).post('/questions');
+    const response = await request(app.getHttpServer())
+      .post('/questions')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .send({
+        title: 'What is NestJS?',
+        content: 'Can someone explain how NestJS works?',
+      });
 
     expect(response.statusCode).toBe(201);
-    expect(response.body).toEqual({
-      access_token: expect.any(String),
-    });
+    expect(response.body).toEqual({});
   });
 });

@@ -37,7 +37,6 @@ describe('Edit question (E2E)', () => {
     const question = await questionFactory.makePrismaQuestion({
       authorId: user.id,
     });
-    console.log(question);
     const questionId = question.id.toString();
     const response = await request(app.getHttpServer())
       .put(`/questions/${questionId}`)

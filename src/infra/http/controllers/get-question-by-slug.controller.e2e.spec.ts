@@ -32,15 +32,21 @@ describe('Get question by slug (E2E)', () => {
     const user = await studentFactory.makePrismaStudent();
     const accessToken = jwt.sign({ sub: user.id.toString() });
 
+    const question = await questionFactory.makePrismaQuestion({
+      authorId: user.id,
+      title: 'New Title',
+    });
+
+    const slug = question.slug.value;
+
     const response = await request(app.getHttpServer())
-      .get('/questions/question-01')
+      .get(`/questions/${slug}`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send();
 
     expect(response.statusCode).toBe(200);
-
     expect(response.body).toEqual({
-      question: expect.objectContaining({ title: 'Question 01' }),
+      question: expect.objectContaining({ title: 'New Title' }),
     });
   });
 });

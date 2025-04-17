@@ -57,7 +57,7 @@ describe('Delete answer comment (E2E)', () => {
       answerId: answer.id,
       authorId: user.id,
     });
-
+    
     const answerCommentId = answerComment.id.toString();
     const response = await request(app.getHttpServer())
       .delete(`/answers/comments/${answerCommentId}`)
