@@ -38,9 +38,11 @@ import { FetchAnswerCommentsUseCase } from '@/domain/forum/application/use-cases
 import { UploadAttachmentController } from './controllers/upload-attachment-controller';
 import { FetchQuestionCommentsController } from './controllers/fetch-question-comments.controller';
 import { FetchQuestionCommentsUseCase } from '@/domain/forum/application/use-cases/fetch-question-comments';
+import { CloudinaryModule } from '../storage/cloudinary/cloudinary.module';
+import { UploadAndCreateAttachmentUseCase } from '@/domain/forum/application/use-cases/upload-and-create-attachment';
 
 @Module({
-  imports: [DatabaseModule, CryptographyModule],
+  imports: [DatabaseModule, CryptographyModule, CloudinaryModule],
   controllers: [
     CreateAccountController,
     AuthenticateController,
@@ -81,6 +83,7 @@ import { FetchQuestionCommentsUseCase } from '@/domain/forum/application/use-cas
     CommentOnAnswerUseCase,
     DeleteAnswerCommentUseCase,
     FetchAnswerCommentsUseCase,
+    UploadAndCreateAttachmentUseCase,
   ],
 })
 export class HttpModule {}

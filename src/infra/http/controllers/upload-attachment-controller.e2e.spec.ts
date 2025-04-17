@@ -24,8 +24,10 @@ describe('Upload attachment (E2E)', () => {
 
     await app.init();
   });
-
-  test('[POST] /attachments', async () => {
+  // I added the skip to avoid uploading more files to the Cloudinary service
+  // Remove it to see if the test works
+  
+  test.skip('[POST] /attachments', async () => {
     const user = await studentFactory.makePrismaStudent();
     const accessToken = jwt.sign({ sub: user.id.toString() });
     const response = await request(app.getHttpServer())
@@ -34,5 +36,8 @@ describe('Upload attachment (E2E)', () => {
       .attach('file', './test/e2e/sample-upload.png');
 
     expect(response.statusCode).toBe(201);
+    expect(response.body).toEqual({
+      attachmentId: expect.any(String),
+    });
   });
 });
