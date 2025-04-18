@@ -17,8 +17,8 @@ import { UserPayload } from '@/infra/auth/jwt-strategy';
 
 const editQuestionBodySchema = z.object({
   title: z.string(),
-
   content: z.string(),
+  attachments: z.array(z.string().uuid()),
 });
 
 const bodyValidationPipe = new ZodValidationPipe(editQuestionBodySchema);
@@ -38,7 +38,7 @@ export class EditQuestionController {
 
     @Param('id') questionId: string,
   ) {
-    const { title, content } = body;
+    const { title, content, attachments } = body;
 
     const userId = user.sub;
 
@@ -46,7 +46,7 @@ export class EditQuestionController {
       title,
       content,
       authorId: userId,
-      attachmentsIds: [],
+      attachmentsIds: attachments,
       questionId,
     });
 
