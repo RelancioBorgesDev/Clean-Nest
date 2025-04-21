@@ -13,12 +13,16 @@ import { makeQuestion } from 'test/factories/make-question';
 import { MockInstance } from 'vitest';
 import { waitFor } from 'test/utils/wait-for';
 import { OnQuestionBestAnswerChosen } from '@/domain/notification/application/subscribers/on-question-best-answer-chosen';
+import { InMemoryUploadAndCreateAttachmentRepository } from 'test/repositories/in-memory-upload-and-create-attachment-repository';
+import { InMemoryStudentsRepository } from 'test/repositories/in-memory-students-repository';
 
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository;
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
 let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository;
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
 let inMemoryNotificationsRepository: InMemoryNotificationsRepository;
+let inMemoryStudentsRepository: InMemoryStudentsRepository;
+let inMemoryAttachmentsRepository: InMemoryUploadAndCreateAttachmentRepository;
 let sendNotificationUseCase: SendNotificationUseCase;
 
 let sendNotificationExecuteSpy: MockInstance<
@@ -31,8 +35,14 @@ describe('On Question Best Answer Chosen', () => {
   beforeEach(() => {
     inMemoryQuestionAttachmentsRepository =
       new InMemoryQuestionAttachmentsRepository();
+    inMemoryStudentsRepository = new InMemoryStudentsRepository();
+    inMemoryAttachmentsRepository =
+      new InMemoryUploadAndCreateAttachmentRepository();
+
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
       inMemoryQuestionAttachmentsRepository,
+      inMemoryAttachmentsRepository,
+      inMemoryStudentsRepository,
     );
     inMemoryAnswerAttachmentsRepository =
       new InMemoryAnswerAttachmentsRepository();

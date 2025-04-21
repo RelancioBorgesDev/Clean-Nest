@@ -7,6 +7,7 @@ import { envSchema } from './env/env';
 import { HttpModule } from './http/http.module';
 import { EnvModule } from './env/env.module';
 import { CloudinaryModule } from './storage/cloudinary/cloudinary.module';
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { CloudinaryModule } from './storage/cloudinary/cloudinary.module';
     AuthModule,
     HttpModule,
     EnvModule,
+    EventsModule,
   ],
 
   providers: [PrismaService],

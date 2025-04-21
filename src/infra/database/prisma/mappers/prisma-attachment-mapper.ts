@@ -9,7 +9,6 @@ export class PrismaAttachmentMapper {
     return Attachment.create(
       {
         title: raw.title,
-
         url: raw.url,
       },
 
