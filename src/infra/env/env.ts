@@ -7,6 +7,9 @@ export const envSchema = z.object({
   CLOUDINARY_CLOUD_NAME: z.string(),
   CLOUDINARY_API_KEY: z.string(),
   CLOUDINARY_API_SECRET: z.string(),
+  REDIS_HOST: z.string().optional().default('127.0.0.1'),
+  REDIS_PORT: z.coerce.number().optional().default(6379),
+  REDIS_DB: z.coerce.number().optional().default(0),
   PORT: z.coerce.number().optional().default(3333),
 });
 

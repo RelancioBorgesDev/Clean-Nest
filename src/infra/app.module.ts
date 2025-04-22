@@ -6,7 +6,6 @@ import { AuthModule } from './auth/auth.module';
 import { envSchema } from './env/env';
 import { HttpModule } from './http/http.module';
 import { EnvModule } from './env/env.module';
-import { CloudinaryModule } from './storage/cloudinary/cloudinary.module';
 import { EventsModule } from './events/events.module';
 
 @Module({
